@@ -1,16 +1,33 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
+import auth from '../../firebase.init';
+
+
 
 const Navbar = () => {
+
+
+    const logout = () => {
+        signOut(auth);
+    }
+    const [user] = useAuthState(auth);
+    console.log(user?.email);
     const menuContent = <>
         <li><NavLink to="/home">হোম</NavLink></li>
         <li><NavLink to="/category">ক্যাটাগরি</NavLink></li>
         <li><NavLink to="/about">আমাদের সম্পর্কে</NavLink></li>
         <li><NavLink to="/contract">যোগাযোগ</NavLink></li>
-        <li><NavLink to="/dashboard"> ড্যাশবোর্ড</NavLink></li>
+        {
+            user && <li><NavLink to="/dashboard"> ড্যাশবোর্ড</NavLink></li>
+        }
         <li><NavLink to="/admin">এডমিন</NavLink></li>
-        <li><NavLink to="/login">নিবন্ধন করুন</NavLink></li>
-        <li><NavLink to="/">বের হোন</NavLink></li>
+
+        <li> {user ? <button onClick={logout} className=''><NavLink to="/">বের হোন</NavLink></button> : <NavLink to="/login">নিবন্ধন করুন</NavLink>}</li>
+
+       
+
     </>
 
     return (
@@ -35,10 +52,10 @@ const Navbar = () => {
 
                         {/* {
                             <NavLink to="/dashboard"> </NavLink> && 
-                            <label for="my-drawer" class=" bg-green-700 drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> </label>     
+                            <label for="my-drawer" className=" bg-green-700 drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> </label>     
                         } */}
-                        <label for="my-drawer" class=" bg-green-700 drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> </label>     
-                       
+                        <label for="my-drawer" className=" bg-green-700 drawer-button"> <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> </label>
+
                         {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> */}
                     </label>
 
