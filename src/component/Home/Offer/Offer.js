@@ -1,5 +1,4 @@
 import React from 'react';
-import OfferTime from './OfferTime';
 
 const Offer = () => {
     return (
@@ -55,7 +54,6 @@ const Offer = () => {
             </div>
         </div>
 
-        {/* <OfferTime></OfferTime> */}
        </div>
     );
 };
